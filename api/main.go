@@ -49,8 +49,6 @@ func Ping(c *gin.Context) {
 	})
 }
 
-
-
 // CurrentUser 获取当前用户
 func CurrentUser(c *gin.Context) *model.User {
 	if user, _ := c.Get("user"); user != nil {

@@ -15,7 +15,6 @@ type Username struct {
 
 type user struct {
 	Name       string
-	Work       model.Types
 	WorkNumber string
 	Email      string
 	Phone      string
@@ -28,16 +27,11 @@ func (serve *UserId) User_Id_Find(c *gin.Context) serializer.Response {
 	if err != nil {
 		return serializer.Json_Fail(100, "用户查找失败", err)
 	}
-	types, errs := model.GetTypes(data.User_type_id)
 	users := &user{
 		Name:       data.UserName,
-		Work:       types,
 		WorkNumber: data.WorkNumber,
 		Email:      data.Email,
 		Phone:      data.Phone,
-	}
-	if errs != nil {
-		return serializer.Json_Fail(100, "用户type查找失败", err)
 	}
 	return serializer.Json_Success(200, "用户信息查找成功", users)
 }
