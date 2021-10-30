@@ -20,17 +20,18 @@ func NewRouter() *gin.Engine {
 
 	v1 := r.Group("/api/v1")
 	{
-
 		// 用户注册
 		v1.POST("user/register", api.UserRegister)
 		// 用户登录
 		v1.POST("user/login", api.UserLogin)
-		//用户通过id查询
-		v1.POST("user/idfind", middleware.JWTAuth(), api.User_Id_Find)
-
+		//用户通过token获取用户的信息
+		v1.GET("user/user_info", middleware.JWTAuth(), api.User_info_Find)
+		//修改头像的路径
+		v1.POST("user/update_picurl", middleware.JWTAuth(), api.Update_pic)
+		//修改用户的密码
+		v1.POST("user/update_password", middleware.JWTAuth(), api.Update_Password)
 
 	}
 	//设备相关操作
-
 	return r
 }

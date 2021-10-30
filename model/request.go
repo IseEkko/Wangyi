@@ -5,9 +5,13 @@ import (
 )
 
 type CustomClaims struct {
-	Id             uint
-	UserName       string
-	PasswordDigest string
-	Type_id        int
+	Id       uint
+	UserName string
+	Password string
+	Local    string
+	Sex      string
+	Jie      string
+	HeadUrl  string
+	Birth    string
 	jwt.StandardClaims
 }

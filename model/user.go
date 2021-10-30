@@ -8,13 +8,13 @@ import (
 // User 用户模型
 type User struct {
 	gorm.Model
-	UserName       string
-	User_type_id   int
-	WorkNumber     string
-	Email          string
-	Phone          string
-	PasswordDigest string
-	Code           int
+	UserName string //用户名
+	Password string //用户密码
+	Local    string //用户地区
+	Sex      string //用户性别
+	Jie      string //用户简介
+	HeadUrl  string //用户头像路径
+	Birth    string //用户生日
 }
 
 const (
@@ -29,18 +29,24 @@ func GetUser(ID interface{}) (User, error) {
 	return user, result.Error
 }
 
+func GetUser_Username(Username interface{}) (User, error) {
+	var user User
+	result := DB.Where("user_name = ?", Username).First(&user)
+	return user, result.Error
+}
+
 // SetPassword 设置密码
 func (user *User) SetPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), PassWordCost)
 	if err != nil {
 		return err
 	}
-	user.PasswordDigest = string(bytes)
+	user.Password = string(bytes)
 	return nil
 }
 
 // CheckPassword 校验密码
 func (user *User) CheckPassword(password string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(user.PasswordDigest), []byte(password))
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	return err == nil
 }

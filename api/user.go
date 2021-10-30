@@ -30,12 +30,22 @@ func UserLogin(c *gin.Context) {
 	}
 }
 
-// UserMe 用户详情
-func UserMe(c *gin.Context) {
-	user := CurrentUser(c)
-	res := serializer.BuildUserResponse(*user)
-	c.JSON(200, res)
+// UserLogin 用户登录接口
+func User_info_Find(c *gin.Context) {
+	var service service.UserId
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.User_info_Find(c)
+		c.JSON(200, res)
+	} else {
+		HandleValidatorError(c, err)
+	}
 }
+
+//// UserMe 用户详情
+//func UserMe(c *gin.Context) {
+//	res := serializer.BuildUserResponse(*user)
+//	c.JSON(200, res)
+//}
 
 // UserLogout 用户登出
 func UserLogout(c *gin.Context) {
@@ -48,13 +58,33 @@ func UserLogout(c *gin.Context) {
 	})
 }
 
-func User_Id_Find(c *gin.Context) {
-	var service service.UserId
+//修改头像路径
+func Update_pic(c *gin.Context) {
+	var service service.Pic_Update
 	if err := c.ShouldBind(&service); err == nil {
-		res := service.User_Id_Find(c)
+		res := service.Update(c)
 		c.JSON(200, res)
 	} else {
 		HandleValidatorError(c, err)
 	}
 }
 
+//func User_Id_Find(c *gin.Context) {
+//	var service service.UserId
+//	if err := c.ShouldBind(&service); err == nil {
+//		res := service.User_Id_Find(c)
+//		c.JSON(200, res)
+//	} else {
+//		HandleValidatorError(c, err)
+//	}
+//}
+
+func Update_Password(c *gin.Context) {
+	var service service.Password_Update
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Update_Password(c)
+		c.JSON(200, res)
+	} else {
+		HandleValidatorError(c, err)
+	}
+}

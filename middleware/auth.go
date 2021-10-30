@@ -41,7 +41,7 @@ func JWTAuth() gin.HandlerFunc {
 			return
 		}
 		c.Set("claims", claims)
-		c.Set("userId", claims.Id)
+		c.Set("user_name", claims.UserName)
 		c.Next()
 	}
 }
@@ -49,6 +49,7 @@ func JWTAuth() gin.HandlerFunc {
 type JWT struct {
 	SigningKey []byte
 }
+
 var (
 	TokenExpired     = errors.New("Token is expired")
 	TokenNotValidYet = errors.New("Token not active yet")
