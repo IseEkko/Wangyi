@@ -31,6 +31,15 @@ func NewRouter() *gin.Engine {
 		//修改用户的密码
 		v1.POST("user/update_password", middleware.JWTAuth(), api.Update_Password)
 
+		//创建歌曲
+		v1.POST("music/creat_music", api.Creat_Musics)
+
+		//轮播图展示传入num，num不是必须传入的，传入的num意思是需要多少条数据，默认为4
+		v1.GET("lunbo/show", api.Find_lun_bo)
+
+		//用户喜欢状态的修改
+		v1.GET("music_love/change", middleware.JWTAuth(), api.Creat_user_love_music)
+
 	}
 	//设备相关操作
 	return r

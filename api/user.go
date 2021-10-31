@@ -78,7 +78,7 @@ func Update_pic(c *gin.Context) {
 //		HandleValidatorError(c, err)
 //	}
 //}
-
+//更改用户的密码
 func Update_Password(c *gin.Context) {
 	var service service.Password_Update
 	if err := c.ShouldBind(&service); err == nil {

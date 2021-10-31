@@ -29,6 +29,7 @@ func GetUser(ID interface{}) (User, error) {
 	return user, result.Error
 }
 
+//根据用户的name查询数据
 func GetUser_Username(Username interface{}) (User, error) {
 	var user User
 	result := DB.Where("user_name = ?", Username).First(&user)
