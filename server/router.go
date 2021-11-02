@@ -30,6 +30,8 @@ func NewRouter() *gin.Engine {
 		v1.POST("user/update_picurl", middleware.JWTAuth(), api.Update_pic)
 		//修改用户的密码
 		v1.POST("user/update_password", middleware.JWTAuth(), api.Update_Password)
+		//修改用户的基本信息
+		v1.POST("user/update_info", middleware.JWTAuth(), api.Update_userinfo)
 
 		//创建歌曲
 		v1.POST("music/creat_music", api.Creat_Musics)
@@ -39,6 +41,10 @@ func NewRouter() *gin.Engine {
 
 		//用户喜欢状态的修改
 		v1.GET("music_love/change", middleware.JWTAuth(), api.Creat_user_love_music)
+		//展示用户的喜欢歌曲
+		v1.GET("music_love/show_love", middleware.JWTAuth(), api.Show_Love_Music)
+		//展示新歌
+		v1.GET("music_new/show", api.Find_new_music)
 
 	}
 	//设备相关操作

@@ -28,7 +28,6 @@ func (service *UserRegisterService) valid() *serializer.Response {
 			Msg:  "账号已经注册占用",
 		}
 	}
-
 	return nil
 }
 

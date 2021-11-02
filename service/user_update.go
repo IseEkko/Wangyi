@@ -6,6 +6,13 @@ import (
 	"singo/serializer"
 )
 
+type Update_UserInfo struct {
+	Local string `form:"local" json:"local"  ` //用户地区
+	Sex   string `form:"sex" json:"sex" `      //用户性别
+	Jie   string ` form:"jie" json:"jie"`      //用户简介
+	Birth string `  form:"birth" json:"birth"` //用户生日
+}
+
 //修改用户的头像信息
 type Pic_Update struct {
 	Head_url string `form:"head_url" json:"head_url"  bind:"required"`
@@ -57,4 +64,21 @@ func (pass *Password_Update) Update_Password(c *gin.Context) serializer.Response
 		return serializer.Json_Fail(100, "用户修改密码失败", nil)
 	}
 	return serializer.Json_Success(200, "修改密码成功", nil)
+}
+
+//修改用户的基本信息
+func (u *Update_UserInfo) Update_userinfo(c *gin.Context) serializer.Response {
+	v, _ := c.Get("user_name")
+	User := &model.User{
+		Password: u.Birth,
+		Local:    u.Local,
+		Sex:      u.Sex,
+		Jie:      u.Jie,
+		Birth:    u.Birth,
+	}
+	res := model.DB.Model(model.User{}).Where("user_name", v).Updates(User)
+	if res.Error != nil {
+		return serializer.Json_Fail(100, "用户修改信息失败", nil)
+	}
+	return serializer.Json_Success(200, "用户修改信息成功", nil)
 }

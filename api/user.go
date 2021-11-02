@@ -88,3 +88,14 @@ func Update_Password(c *gin.Context) {
 		HandleValidatorError(c, err)
 	}
 }
+
+//修改用户的基本信息
+func Update_userinfo(c *gin.Context) {
+	var service service.Update_UserInfo
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Update_userinfo(c)
+		c.JSON(200, res)
+	} else {
+		HandleValidatorError(c, err)
+	}
+}

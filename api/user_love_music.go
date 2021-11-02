@@ -15,3 +15,9 @@ func Creat_user_love_music(c *gin.Context) {
 		HandleValidatorError(c, err)
 	}
 }
+
+//展示用户的喜欢歌曲
+func Show_Love_Music(c *gin.Context) {
+	res := service.Show_Love_Music(c)
+	c.JSON(200, res)
+}
